@@ -18,14 +18,14 @@
           <div class="card card-body text-center mt-5">
             <form>
               <select class="custom-select" id="formula-selector">
-                <option value="temperature" selected>Temperature</option>
+                <option value="temperature">Temperature</option>
                 <option value="time">Time</option>
               </select>
               <div class="row pt-3">
                 <div class="col">
                   <div class="input-group">
                     <div class="input-group-prepend">
-                      <span class="input-group-text">Fahrenheit</span>
+                      <span class="input-group-text" id="input-title">Fahrenheit</span>
                     </div>
                     <input type="text" class="form-control" id="inputValue">
                   </div>
@@ -34,7 +34,7 @@
                 <div class="col">
                     <div class="input-group">
                       <div class="input-group-prepend">
-                        <span class="input-group-text">Celsius</span>
+                        <span class="input-group-text" id="result-title">Celsius</span>
                       </div>
                       <input type="text" class="form-control" id="resultValue">
                     </div>

@@ -2,18 +2,36 @@
 const inputValueEl = document.querySelector('#inputValue');
 const resultValueEl = document.querySelector('#resultValue');
 const formulaSelectorEl = document.querySelector('#formula-selector');
-const selectedFormula = formulaSelectorEl.options[formulaSelectorEl.selectedIndex].value;
+const inputTitle = document.getElementById('input-title');
+const resultTitle = document.getElementById('result-title');
 
-inputValueEl.addEventListener('keyup', function(e){selectFormula(inputValueEl.value, e)}, false);
-resultValueEl.addEventListener('keyup', function(e){selectFormula(resultValueEl.value, e)}, false);
+inputValueEl.addEventListener('keyup', function(e){runFormula(inputValueEl.value, e)}, false);
+resultValueEl.addEventListener('keyup', function(e){runFormula(resultValueEl.value, e)}, false);
+formulaSelectorEl.addEventListener('change', changeFormula);
 
-function selectFormula(value, e) {
+function changeFormula(){
+  let selectedFormula = formulaSelectorEl.options[formulaSelectorEl.options.selectedIndex].value;
+  switch(selectedFormula){
+    case 'temperature':
+      inputTitle.textContent = 'Fahrenheit';
+      resultTitle.textContent = 'Celsius';
+      break;
+    case 'time':
+      inputTitle.textContent = 'Seconds';
+      resultTitle.textContent = 'Minutes';
+      break;
+    default:
+  }
+}
+
+function runFormula(value, e) {
+  let selectedFormula = formulaSelectorEl.options[formulaSelectorEl.options.selectedIndex].value;
   switch(selectedFormula){
     case 'temperature':
       convertTemperature(value, e);
       break;
     case 'time':
-      console.log("time");
+      secondsToMinutes(value, e)
       break;
     default:
   }
@@ -24,10 +42,23 @@ function convertTemperature(temp, e) {
   if(e.target.id === 'inputValue'){
     //convert fehrenheit to celsius
     x = (inputValueEl.value - 32) * 5 / 9;
-    resultValueEl.value = Math.round(x);
+    resultValueEl.value = x.toFixed(2);
   }else{
     //convert celsius to fahrenheit
     x = resultValueEl.value * 9 / 5 + 32;
-    inputValueEl.value = Math.round(x);
+    inputValueEl.value = x.toFixed(2);
+  }
+}
+
+function secondsToMinutes(time, e) {
+  let x;
+  if(e.target.id === 'inputValue'){
+    //convert seconds to minutes
+    x = inputValueEl.value / 60;
+    resultValueEl.value = x.toFixed(2);
+  }else{
+    //convert minutes to seconds
+    x = resultValueEl.value * 60;
+    inputValueEl.value = x.toFixed(2);
   }
 }
